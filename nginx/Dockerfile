@@ -10,4 +10,3 @@ COPY default /etc/nginx/sites-available/default
 EXPOSE 443
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
-# ENTRYPOINT ["tail", "-f", "/dev/null"]

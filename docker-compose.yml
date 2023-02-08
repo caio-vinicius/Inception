@@ -28,5 +28,3 @@ volumes:
       type: none
       o: bind
       device: "$HOME/data/mariadb"
-
-
