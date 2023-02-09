@@ -29,6 +29,12 @@ services:
       - mariadb-data:/var/lib/mysql
     restart: on-failure
 
+  redis:
+    build: ./redis
+    expose:
+      - '6379'
+    restart: on-failure
+
 volumes:
   wordpress-data:
     driver: local
