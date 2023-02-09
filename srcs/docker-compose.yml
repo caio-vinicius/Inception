@@ -2,15 +2,18 @@ version: '3.9'
 
 services:
   nginx:
+    depends_on:
+      - wordpress
     build: ./nginx
     ports:
-      - '3000:80'
       - '443:443'
     volumes:
       - wordpress-data:/app/wordpress
     restart: on-failure
 
   wordpress:
+    depends_on:
+      - mariadb
     build: ./wordpress
     expose:
       - '9000'
