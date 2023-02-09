@@ -9,6 +9,7 @@ services:
     volumes:
       - wordpress-data:/app/wordpress
     restart: on-failure
+
   wordpress:
     build: ./wordpress
     expose:
@@ -16,6 +17,7 @@ services:
     volumes:
       - wordpress-data:/app/wordpress
     restart: on-failure
+
   mariadb:
     build: ./mariadb
     expose:
@@ -31,9 +33,14 @@ volumes:
       type: none
       o: bind
       device: "$HOME/data/wordpress"
+
   mariadb-data:
     driver: local
     driver_opts:
       type: none
       o: bind
       device: "$HOME/data/mariadb"
+
+networks:
+  compose-bridge:
+    driver: bridge
