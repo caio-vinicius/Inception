@@ -14,6 +14,7 @@ services:
   wordpress:
     depends_on:
       - mariadb
+      - redis
     build: ./wordpress
     expose:
       - '9000'
@@ -33,6 +34,26 @@ services:
     build: ./redis
     expose:
       - '6379'
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "redis-cli","ping"]
+
+  ftp:
+    depends_on:
+      - wordpress
+    build: ./ftp
+    ports:
+      - '21:21'
+    restart: on-failure
+    volumes:
+      - wordpress-data:/home/ftpuser/wordpress
+
+  adminer:
+    depends_on:
+      - mariadb
+    build: ./adminer
+    ports:
+      - '4242:80'
     restart: on-failure
 
 volumes:

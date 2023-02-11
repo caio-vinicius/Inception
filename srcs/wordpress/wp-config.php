@@ -1,5 +1,12 @@
 <?php
 
+define('WP_CACHE_KEY_SALT', 'seu-site.com');
+define('WP_REDIS_CLIENT', 'predis');
+define('WP_REDIS_SCHEME', 'tcp');
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', '6379');
+define('WP_CACHE', true);
+
 define( 'DB_NAME', 'wordpress' );
 define( 'DB_USER', 'wordpress' );
 define( 'DB_PASSWORD', '' );
