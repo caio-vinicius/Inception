@@ -1,6 +1,8 @@
 CREATE DATABASE wordpress;
 CREATE USER 'wordpress'@'%';
 GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'%';
+CREATE USER 'main'@'%';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'main'@'%';
 
 USE wordpress;
 
