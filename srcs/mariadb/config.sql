@@ -1,9 +1,6 @@
 CREATE DATABASE wordpress;
-CREATE USER 'wordpress'@'%';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'%' IDENTIFIED BY '1234';
-
--- CREATE USER 'banana'@'%';
--- GRANT ALL PRIVILEGES ON banana.* TO 'banana'@'%' IDENTIFIED BY '{{PASSWORD}}';
+CREATE USER 'wordpress'@'%' IDENTIFIED BY '{{PASSWORD}}';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'%' IDENTIFIED BY '{{PASSWORD}}';
 
 USE wordpress;
 

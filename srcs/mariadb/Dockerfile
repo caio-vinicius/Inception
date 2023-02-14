@@ -8,4 +8,6 @@ COPY ./config.sql /tmp/config.sql
 
 EXPOSE 3306
 
-ENTRYPOINT ["mysqld_safe", "--init-file=/tmp/config.sql", "--bind-address=0.0.0.0"]
+COPY ./init.sh .
+
+ENTRYPOINT ["bash", "init.sh"]
