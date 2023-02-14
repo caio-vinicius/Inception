@@ -16,7 +16,7 @@ services:
   wordpress:
     depends_on:
       - mariadb
-      # - redis
+      - redis
     build: ./wordpress
     expose:
       - '9000'
@@ -25,6 +25,8 @@ services:
     restart: on-failure
     networks:
       - compose-bridge
+    environment:
+      - PASSWORD=${PASSWORD}
 
   mariadb:
     build: ./mariadb
@@ -38,27 +40,27 @@ services:
     environment:
       - PASSWORD=${PASSWORD}
 
-  # redis:
-  #   build: ./redis
-  #   expose:
-  #     - '6379'
-  #   restart: on-failure
-  #   healthcheck:
-  #     test: ["CMD", "redis-cli","ping"]
-  # networks:
-  #   - compose-bridge
+  redis:
+    build: ./redis
+    expose:
+      - '6379'
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "redis-cli","ping"]
+    networks:
+      - compose-bridge
 
-  # ftp:
-  #   depends_on:
-  #     - wordpress
-  #   build: ./ftp
-  #   ports:
-  #     - '21:21'
-  #   restart: on-failure
-  #   volumes:
-  #     - wordpress-data:/home/ftpuser/wordpress
-  # networks:
-  #   - compose-bridge
+  ftp:
+    depends_on:
+      - wordpress
+    build: ./ftp
+    ports:
+      - '21:21'
+    restart: on-failure
+    volumes:
+      - wordpress-data:/home/ftpuser/wordpress
+    networks:
+    - compose-bridge
 
   adminer:
     depends_on:
@@ -66,6 +68,22 @@ services:
     build: ./adminer
     ports:
       - '4242:80'
+    restart: on-failure
+    networks:
+      - compose-bridge
+
+  web:
+    build: ./web
+    ports:
+      - '5000:5000'
+    restart: on-failure
+    networks:
+      - compose-bridge
+
+  uptime:
+    build: ./uptime
+    ports:
+      - '3001:3001'
     restart: on-failure
     networks:
       - compose-bridge

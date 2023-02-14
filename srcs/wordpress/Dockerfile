@@ -16,4 +16,6 @@ COPY wp-config.php /app/wordpress/
 
 EXPOSE 9000
 
-ENTRYPOINT [ "php-fpm7.3", "--nodaemonize" ]
+COPY init.sh .
+
+ENTRYPOINT ["bash", "init.sh"]
