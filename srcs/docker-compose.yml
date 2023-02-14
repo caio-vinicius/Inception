@@ -35,6 +35,8 @@ services:
     volumes:
       - mariadb-data:/var/lib/mysql
     restart: on-failure
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
     networks:
       - compose-bridge
     environment:
@@ -46,7 +48,7 @@ services:
       - '6379'
     restart: on-failure
     healthcheck:
-      test: ["CMD", "redis-cli","ping"]
+      test: ['CMD', 'redis-cli','ping']
     networks:
       - compose-bridge
 
@@ -60,7 +62,7 @@ services:
     volumes:
       - wordpress-data:/home/ftpuser/wordpress
     networks:
-    - compose-bridge
+      - compose-bridge
 
   adminer:
     depends_on:
@@ -94,14 +96,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: "$HOME/data/wordpress"
+      device: '$HOME/data/wordpress'
 
   mariadb-data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: "$HOME/data/mariadb"
+      device: '$HOME/data/mariadb'
 
 networks:
   compose-bridge:
