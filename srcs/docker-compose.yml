@@ -35,6 +35,8 @@ services:
     restart: on-failure
     networks:
       - compose-bridge
+    environment:
+      - PASSWORD=${PASSWORD}
 
   # redis:
   #   build: ./redis
