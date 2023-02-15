@@ -13,6 +13,10 @@ ADD wordpress-6.1.1.tar.gz .
 COPY www.conf /etc/php/7.3/fpm/pool.d/
 
 COPY wp-config.php /app/wordpress/
+COPY redis-cache /app/wordpress/wp-content/plugins/redis-cache
+COPY object-cache.php /app/wordpress/wp-content/
+
+RUN chown www-data:www-data -R /app/wordpress
 
 EXPOSE 9000
 

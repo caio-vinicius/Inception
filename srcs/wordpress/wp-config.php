@@ -1,18 +1,17 @@
 <?php
 
-define('WP_CACHE_KEY_SALT', 'seu-site.com');
-define('WP_REDIS_CLIENT', 'predis');
-define('WP_REDIS_SCHEME', 'tcp');
-define('WP_REDIS_HOST', 'redis');
-define('WP_REDIS_PORT', '6379');
-define('WP_CACHE', true);
-
 define( 'DB_NAME', 'wordpress' );
 define( 'DB_USER', 'wordpress' );
 define( 'DB_PASSWORD', '{{PASSWORD}}' );
 define( 'DB_HOST', 'mariadb:3306' );
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
+
+define('WP_CACHE', true);
+define('WP_CACHE_KEY_SALT', 'lenzo-pe.42.fr');
+
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', '6379');
 
 define( 'AUTH_KEY',         'put your unique phrase here' );
 define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
