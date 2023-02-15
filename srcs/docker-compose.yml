@@ -23,10 +23,12 @@ services:
     volumes:
       - wordpress-data:/app/wordpress
     restart: on-failure
+    environment:
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
     networks:
       - compose-bridge
-    environment:
-      - PASSWORD=${PASSWORD}
 
   mariadb:
     build: ./mariadb
@@ -37,10 +39,17 @@ services:
     restart: on-failure
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+    environment:
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+
+      - USER_LOGIN=${USER_LOGIN}
+      - USER_EMAIL=${USER_EMAIL}
+      - USER_PASS=${USER_PASS}
+      - USER_NICK=${USER_NICK}
     networks:
       - compose-bridge
-    environment:
-      - PASSWORD=${PASSWORD}
 
   redis:
     build: ./redis

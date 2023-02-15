@@ -1,8 +1,8 @@
-CREATE DATABASE wordpress;
-CREATE USER 'wordpress'@'%' IDENTIFIED BY '{{PASSWORD}}';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'%' IDENTIFIED BY '{{PASSWORD}}';
+CREATE DATABASE {{DB_NAME}};
+CREATE USER '{{DB_USER}}'@'%';
+GRANT ALL PRIVILEGES ON {{DB_NAME}}.* TO '{{DB_USER}}'@'%' IDENTIFIED BY '{{DB_PASS}}';
 
-USE wordpress;
+USE {{DB_NAME}};
 
 DROP TABLE IF EXISTS `wp_commentmeta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -532,9 +532,9 @@ INSERT INTO `wp_usermeta`
 		(18,1,'community-events-location','a:1:{s:2:\"ip\";s:10:\"172.19.0.0\";}');
 	INSERT INTO `wp_usermeta`
 	VALUES
-		(19,2,'nickname','lenzo'),
-		(20,2,'first_name','luigi'),
-		(21,2,'last_name','ferrari'),
+		(19,2,'nickname','{{USER_NICK}}'),
+		(20,2,'first_name',''),
+		(21,2,'last_name',''),
 		(22,2,'description',''),
 		(23,2,'rich_editing','true'),
 		(24,2,'syntax_highlighting','true'),
@@ -574,18 +574,6 @@ CREATE TABLE `wp_users` (
   KEY `user_email` (`user_email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
-INSERT INTO `wp_users`
-VALUES (
-	2,
-	'lenzo',
-	'$P$BlgASECgpMI1nj3sy8faTZy4M3Pe3b1',
-	'lenzo',
-	'lenzo@mail.com',
-	'https://localhost',
-	'2023-02-09 00:35:29',
-	'',
-	0,
-	'luigi ferrari');
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -602,11 +590,23 @@ VALUES (
 	'42student',
 	'caio@mail.com',
 	'https://localhost',
-	'2023-02-09 00:35:29',
+	NOW(),
 	'',
 	0,
 	'42student');
 
+INSERT INTO `wp_users`
+VALUES (
+	2,
+	'{{USER_LOGIN}}',
+	MD5({{USER_PASS}}),
+	'{{USER_NICK}}',
+	'{{USER_EMAIL}}',
+	'user_url',
+	NOW(),
+	'',
+	0,
+	'');
 
 /*!40000 ALTER TABLE `wp_users` ENABLE KEYS */;
 UNLOCK TABLES;
