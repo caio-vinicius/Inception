@@ -6,7 +6,7 @@ server {
     ssl_protocols TLSv1.3;
     root /app/wordpress;
     index index.php;
-    server_name _;
+    server_name lenzo-pe.42.fr;
     location ~ \.php$ {
         try_files $uri =404;
     	fastcgi_pass wordpress:9000;
