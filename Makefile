@@ -17,7 +17,7 @@ d: | $(VOLUME)
 	docker-compose -f $(DOCKER_PATH)docker-compose.yml up -d
 
 ls:
-	docker-compose -f $(DOCKER_PATH)docker-compose.yml ps
+	@docker-compose -f $(DOCKER_PATH)docker-compose.yml ps
 
 volumes:
 	docker volume ls
@@ -29,6 +29,6 @@ $(VOLUME):
 	mkdir -p $(VOLUME)
 
 clean:
-	docker-compose rm
+	docker-compose -f $(DOCKER_PATH) rm
 
 PHONY: all clean ls d volumes

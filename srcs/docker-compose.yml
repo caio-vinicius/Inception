@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   nginx:
+    container_name: nginx
     depends_on:
       - wordpress
     build: ./nginx
@@ -14,6 +15,7 @@ services:
       - compose-bridge
 
   wordpress:
+    container_name: wordpress
     depends_on:
       - mariadb
       - redis
@@ -31,6 +33,7 @@ services:
       - compose-bridge
 
   mariadb:
+    container_name: mariadb
     build: ./mariadb
     expose:
       - '3306'
@@ -52,6 +55,7 @@ services:
       - compose-bridge
 
   redis:
+    container_name: redis
     build: ./redis
     expose:
       - '6379'
@@ -62,6 +66,7 @@ services:
       - compose-bridge
 
   ftp:
+    container_name: ftp
     depends_on:
       - wordpress
     build: ./ftp
@@ -74,6 +79,7 @@ services:
       - compose-bridge
 
   adminer:
+    container_name: adminer
     depends_on:
       - mariadb
     build: ./adminer
@@ -84,6 +90,7 @@ services:
       - compose-bridge
 
   web:
+    container_name: web
     build: ./web
     ports:
       - '5000:5000'
@@ -92,6 +99,7 @@ services:
       - compose-bridge
 
   uptime:
+    container_name: uptime
     build: ./uptime
     ports:
       - '3001:3001'
