@@ -3,7 +3,7 @@ HOST_NAME := $(LOGIN).42.fr
 
 DOCKER_PATH := srcs/
 
-FOLDERS := mariadb/ wordpress/
+FOLDERS := mariadb wordpress
 VOLUME := $(addprefix $(HOME)/$(LOGIN)/data/, $(FOLDERS))
 
 all: | $(VOLUME)
@@ -11,10 +11,10 @@ all: | $(VOLUME)
 	sudo echo "127.0.0.1 $(HOST_NAME)" >> /etc/hosts
 	docker-compose -f $(DOCKER_PATH)docker-compose.yml up
 
-d: | $(VOLUME)
+build: | $(VOLUME)
 	@sudo chmod a+w /etc/hosts && sudo cat /etc/hosts | grep $(HOST_NAME) || \
 	sudo echo "127.0.0.1 $(HOST_NAME)" >> /etc/hosts
-	docker-compose -f $(DOCKER_PATH)docker-compose.yml up -d
+	docker-compose -f $(DOCKER_PATH)docker-compose.yml up --build
 
 ls:
 	@docker-compose -f $(DOCKER_PATH)docker-compose.yml ps
@@ -28,7 +28,12 @@ networks:
 $(VOLUME):
 	mkdir -p $(VOLUME)
 
-clean:
-	docker-compose -f $(DOCKER_PATH) rm
+fclean:
+	sudo $(RM) -r $(HOME)/$(LOGIN)
+	docker-compose -f $(DOCKER_PATH)*.yml rm
+	docker volume ls -q | grep 'mariadb' | xargs docker volume rm
+	docker volume ls -q | grep 'wordpress' | xargs docker volume rm
 
-PHONY: all clean ls d volumes
+re: fclean build
+
+PHONY: all clean ls volumes build networks

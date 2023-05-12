@@ -74,7 +74,9 @@ services:
       - '21:21'
     restart: on-failure
     volumes:
-      - wordpress-data:/home/ftpuser/wordpress
+      - wordpress-data:/home/${USER_LOGIN}/wordpress
+    environment:
+      - USER_LOGIN=${USER_LOGIN}
     networks:
       - compose-bridge
 
